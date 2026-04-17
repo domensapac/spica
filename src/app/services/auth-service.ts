@@ -1,0 +1,37 @@
+import { inject, Injectable, signal } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; 
+import { tap } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthService {
+  private http = inject(HttpClient); 
+
+  private authUrl = '/auth-api/connect/token';
+  token = signal <string | null>(null);
+
+  getCreds(){
+    const payload = new URLSearchParams();
+    payload.set('grant_type', 'client_credentials'); 
+    payload.set('client_id', 'gNa0rGEkFYcBrU8qAevzCzPZe'); 
+    payload.set('client_secret', 'ia1QN38I0TMMX1BdZ3yKhSVswtXCzxqP5UTNpgOzlxJBvCui5z'); 
+    payload.set('scope', 'api');
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+
+    return this.http.post<any>(this.authUrl, payload.toString(), { headers })
+      .pipe(
+        tap(res => {
+          console.log(res);
+          if(res.access_token){
+            this.token.set(res.access_token); 
+            localStorage.setItem("token", res.access_token);
+            console.log('Success'); 
+          }
+        })
+      )
+  }
+}
