@@ -9,7 +9,7 @@ export class AuthService {
   private http = inject(HttpClient); 
 
   private authUrl = '/auth-api/connect/token';
-  token = signal <string | null>(null);
+  token = signal <string | null>(typeof window !== 'undefined' ? localStorage.getItem('token') : null);
 
   getCreds(){
     const payload = new URLSearchParams();
