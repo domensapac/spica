@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
 import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,8 @@ export class AuthService {
   getCreds(){
     const payload = new URLSearchParams();
     payload.set('grant_type', 'client_credentials'); 
-    payload.set('client_id', 'gNa0rGEkFYcBrU8qAevzCzPZe'); 
-    payload.set('client_secret', 'ia1QN38I0TMMX1BdZ3yKhSVswtXCzxqP5UTNpgOzlxJBvCui5z'); 
+    payload.set('client_id', environment.clientId); 
+    payload.set('client_secret', environment.clientSecret); 
     payload.set('scope', 'api');
 
     const headers = new HttpHeaders({

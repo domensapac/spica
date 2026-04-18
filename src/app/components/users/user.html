@@ -1,0 +1,27 @@
+<button (click) = "getUsers()" class="bg-blue-600 text-white px-4 py-2 rounded shadow-md hover:bg-blue-700 transition">
+    Get users
+</button>
+
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(user of userList(); track user.Id){
+                <tr>
+                    <td>{{ user.FirstName }}</td>
+                    <td>{{ user.LastName }}</td>
+                </tr>
+            } @empty {
+                <tr>
+                    <td colspan="2">Ni še podatkov!</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
