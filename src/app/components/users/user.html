@@ -1,27 +1,156 @@
-<button (click) = "getUsers()" class="bg-blue-600 text-white px-4 py-2 rounded shadow-md hover:bg-blue-700 transition">
-    Get users
-</button>
-
-
-<div>
-    <table>
+<div class="flex flex-col max-h-screen ">
+    <div class="flex w-full justify-between">
+        <div>
+            <form>   
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/></svg>
+                    </div>
+                    <input type="search" id="search" class="block w-full p-1.5 ps-9 border rounded-lg text-sm shadow-xs focus:border-1" placeholder="Search by name" />
+                </div>
+            </form>
+        </div>
+        <div>
+            <button (click) = "getUsers()" class="bg-blue-600 text-white px-4 py-2 rounded shadow-md hover:bg-blue-700 transition">
+                Add user
+            </button>
+        </div>
+    </div>
+    <div class="flex flex-col h-full text-gray-700 bg-white shadow-md ">
+    <table class="border-separate border-1 border-slate-300 rounded-xl text-left table-auto min-w-max">
         <thead>
             <tr>
-                <th>First name</th>
-                <th>Last name</th>
+                <th class="p-3 border-b border-slate-300 bg-slate-50">
+                    <div class="flex items-center justify-between">
+                        <p class="block text-xs font-bold leading-none text-slate-800">
+                            FIRST NAME
+                        </p>
+                        <div class="flex flex-col">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                </th>
+                <th class="p-3 border-b border-slate-300 bg-slate-50">
+                    <div class="flex items-center justify-between">
+                        <p class="block text-xs font-bold leading-none text-slate-800">
+                            LAST NAME
+                        </p>
+                        <div class="flex flex-col">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                </th>
+                <th class="p-3 border-b border-slate-300 bg-slate-50">
+                    <div class="flex items-center justify-between">
+                        <p class="block text-xs font-bold leading-none text-slate-800">
+                            EMAIL
+                        </p>
+                        <div class="flex flex-col">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                </th>
+                <th class="p-3 border-b border-slate-300 bg-slate-50">
+                    <div class="flex items-center justify-between">
+                        <p class="block text-xs font-bold leading-none text-slate-800">
+                            USER ID
+                        </p>
+                        <div class="flex flex-col">
+                        </div>
+                    </div>
+                </th>
+                <th class="p-3 border-b border-slate-300 bg-slate-50">
+                    <div class="flex items-center justify-between">
+                        <p class="block text-xs font-bold leading-none text-slate-800">
+                            CREATED ON
+                        </p>
+                        <div class="flex flex-col">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-up-icon lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                </th>
+                <th class="p-3 border-b border-slate-300 bg-slate-50">
+                    <p class="block text-center text-xs font-normal leading-none text-slate-500">
+                        CHANGES
+                    </p>
+                </th>
             </tr>
         </thead>
         <tbody>
-            @for(user of userList(); track user.Id){
-                <tr>
-                    <td>{{ user.FirstName }}</td>
-                    <td>{{ user.LastName }}</td>
+            @for(user of paginatedUsers(); track user.Id){
+                <tr class="hover:bg-slate-100">
+                    <td class="p-2 border-b border-slate-200">
+                        <p class="block text-xs text-slate-800">
+                            {{ user.FirstName }}
+                        </p>
+                    </td>
+                    <td class="p-2 border-b border-slate-200">
+                        <p class="block text-xs text-slate-800">
+                            {{ user.LastName }}
+                        </p>
+                    </td>
+                    <td class="p-2 border-b border-slate-200">
+                        <p class="block text-xs text-slate-800">
+                            {{ user.Email }}
+                        </p>
+                    </td>
+                    <td class="p-2 border-b border-slate-200">
+                        <div class="flex justify-between items-center">
+                            <p class="block text-xs text-slate-800">
+                                {{ user.Id }}
+                            </p>
+                            <span class="active:scale-120 hover:cursor-pointer focus:outline-2" (click) = "copyToClipboard(user.Id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="p-2 border-b border-slate-200">
+                        <p class="block text-xs text-slate-800">
+                            {{ user.CreatedOn }}
+                        </p>
+                    </td>
+                    <td class="p-1 border-b border-slate-200">
+                        <div class="flex justify-center gap-3">
+                            <a href="#" class="block text-xs text-slate-800 font-semibold  inline-flex items-center gap-1">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                                </span>
+                                <span>Edit</span>
+                            </a>
+                            <a href="#" class="block text-xs text-slate-800 font-semibold  inline-flex items-center gap-1">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                                </span>
+                                <span>Delete</span>
+                            </a>
+                        </div>
+                    </td>
                 </tr>
             } @empty {
                 <tr>
-                    <td colspan="2">Ni še podatkov!</td>
+                    <td colspan="3">Ni še podatkov!</td>
                 </tr>
             }
         </tbody>
     </table>
+    <div>
+        <button (click) = "goToPage(currentPage()-1)">
+            Prev
+        </button>
+        <button (click) = "goToPage(currentPage()+1)">
+            Next
+        </button>
+        
+    </div>
+    </div>
 </div>
+
+ 
+
+
+
+

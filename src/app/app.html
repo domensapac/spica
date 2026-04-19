@@ -1,3 +1,11 @@
-<app-navbar></app-navbar>
+<div class="h-screen w-full flex justify-center py-6">
+    <div class="h-full w-5/6 shadow-2xl grid rounded-[2rem] grid-cols-5 overflow-hidden" >
+        <div class="col-span-1 border-r bg-white h-full overflow-y-auto">
+            <app-navbar></app-navbar>
+        </div>
+        <div class="col-span-4 m-5 h-full overflow-y-auto">        
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
 
-<router-outlet></router-outlet>
