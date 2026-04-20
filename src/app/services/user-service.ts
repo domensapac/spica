@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common'; 
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class UserService {
 
   private userUrl = '/main-api/api/v1/users';
 
-  private cachedUsers = signal<any | null>(null); 
+  cachedUsers = signal<any | null>(null); 
 
   getUsers(){
     if(isPlatformBrowser(this.platformId)){
@@ -35,9 +36,18 @@ export class UserService {
     }
   }
 
+  deleteUser(userId : string){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })
+    return this.http.delete<any>(`${this.userUrl}/${userId} `, { headers }).pipe(tap(users => this.cachedUsers.set(users)));
+
+  }
+
   clearCache(){
     this.cachedUsers.set(null);
   }
-
 
 }

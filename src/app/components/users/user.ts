@@ -53,6 +53,38 @@ export class UserComponent {
     })
   }
 
+  showDialog(event : Event, id : string){
+    event.preventDefault();
+    const conf = confirm("Are you sure you want to delete this user");
+
+    if(conf){
+      const userId : string = id;
+      this.deleteUser(userId);
+    }
+  }
+
+  openEditDialog(){}
+
+  deleteUser(userId : string){
+    console.log(userId);
+    
+    this.dataSource.data = this.dataSource.data.filter(u => u?.Id !== userId);
+
+    // Če uporabljaš cachedUsers signal v servisu, posodobi še tega (za konsistentnost)
+    this.users.cachedUsers.update(userList =>
+      userList.filter((u : any) => u.Id !== userId)
+    );
+
+    this.users.deleteUser(userId).subscribe({
+      next: (res : any) => {
+        console.log("success");
+      }, 
+      error: (res : any) => {
+        this.getUsers();
+      }
+    });
+  }
+
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
