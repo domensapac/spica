@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './components/settings/settings';
 import { Router } from 'express';
 import { NavbarComponent } from './components/navbar/navbar';
-import { UserComponent } from './components/users/user';
+import { UsersComponent } from './components/users/users';
 
 @Component({
   selector: 'app-root',

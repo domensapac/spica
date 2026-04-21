@@ -6,14 +6,15 @@ import {MatSort, MatSortModule, Sort} from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-usercomponent',
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule],
-  templateUrl: './user.html',
-  styleUrl: './user.css',
+  selector: 'app-userscomponent',
+  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, RouterModule],
+  templateUrl: './users.html',
+  styleUrl: './users.css',
 })
-export class UserComponent {
+export class UsersComponent {
   users = inject(UserService); 
   private _liveAnnouncer = inject(LiveAnnouncer);
 

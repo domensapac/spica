@@ -42,8 +42,22 @@ export class UserService {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     })
-    return this.http.delete<any>(`${this.userUrl}/${userId} `, { headers }).pipe(tap(users => this.cachedUsers.set(users)));
+    return this.http.delete<any>(`${this.userUrl}/${userId} `, { headers });
 
+  }
+
+  addUser(object : Object){
+    const a = {
+      FirstName : "mitja",
+      LastName : "aa",
+      Email : "mitja@gmail.com"
+    }
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })  
+    return this.http.post<any>((this.userUrl), JSON.stringify(a), { headers });
   }
 
   clearCache(){
