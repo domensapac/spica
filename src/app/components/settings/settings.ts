@@ -10,12 +10,11 @@ import { AuthService } from '../../services/auth-service';
 export class SettingsComponent {
   auth = inject(AuthService);
   
+  ngOnInit(){
+    this.auth.getCreds().subscribe();
+  }
+
   getCreds(){ 
-    this.auth.getCreds().subscribe({
-      next: (res) => {
-      },
-      error: (err) =>{
-      }
-    })
+    this.auth.getCreds().subscribe();
   }
 }
