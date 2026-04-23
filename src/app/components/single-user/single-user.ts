@@ -47,11 +47,15 @@ export class SingleUserComponent {
   }
 
  fillForm(user : any){
+  let date : string = ''; 
+  if(user.BirthDate !== null)
+   date = user.BirthDate.split("T")[0];
+
   this.FirstName = user.FirstName; 
   this.LastName = user.LastName; 
   this.Email = user.Email; 
   this.MiddleName = user.MiddleName; 
-  this.BirthDate = user.BirthDate.split("T")[0];
+  this.BirthDate = date;
   this.Address = user.Address; 
   this.City = user.City; 
   this.State = user.State; 
@@ -62,7 +66,13 @@ export class SingleUserComponent {
 
   onSubmit() {
     let formattedDate = null; 
-    formattedDate = new Date(this.BirthDate).toISOString();
+    if(this.BirthDate != ""){
+      console.log(this.BirthDate);
+      formattedDate = new Date(this.BirthDate).toISOString();
+    }
+    else{
+      formattedDate = null;
+    }
     this.submitted = true; 
     const newUser = {
       Id : this.id,

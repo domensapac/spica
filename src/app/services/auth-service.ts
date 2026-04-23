@@ -11,12 +11,15 @@ export class AuthService {
 
   private authUrl = '/auth-api/connect/token';
   token = signal <string | null>(typeof window !== 'undefined' ? localStorage.getItem('token') : null);
+  //token = signal<string>(localStorage.getItem('token') || ''); 
 
-  getCreds(){
+  getCreds(authData : any){
+    console.log(authData.client_id); 
+    console.log(authData.client_secret);
     const payload = new URLSearchParams();
     payload.set('grant_type', 'client_credentials'); 
-    payload.set('client_id', environment.clientId); 
-    payload.set('client_secret', environment.clientSecret); 
+    payload.set('client_id', authData.client_id); 
+    payload.set('client_secret', authData.client_secret); 
     payload.set('scope', 'api');
 
     const headers = new HttpHeaders({

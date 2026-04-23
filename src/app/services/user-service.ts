@@ -4,6 +4,7 @@ import { tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common'; 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { UsersComponent } from '../components/users/users';
 
 @Injectable({
   providedIn: 'root',
@@ -16,13 +17,15 @@ export class UserService {
   private userUrl = '/main-api/api/v1/users';
 
   cachedUsers = signal<any | null>(null); 
-
+  
   getUsers(){
     if(isPlatformBrowser(this.platformId)){
+      /*
       if(this.cachedUsers() !== null){
         return of(this.cachedUsers());
       }
-      
+      */
+     
       const token = localStorage.getItem('token');
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',

@@ -7,6 +7,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
+import { parse } from 'path';
 
 @Component({
   selector: 'app-userscomponent',
@@ -29,14 +30,29 @@ export class UsersComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
-    if(this.userList().length === 0){
+    /*if(this.userList().length === 0){
       this.getUsers();
     }
+      */
+    //this.getUsers();
+    this.loadUsers();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  loadUsers(){
+    const rawData = localStorage.getItem('usersData');
+    if(rawData){
+      const parsedData = JSON.parse(rawData);
+      console.log(parsedData);
+      this.dataSource.data = parsedData;
+    }
+    else{
+      this.getUsers();
+    }
   }
 
   getUsers(){
@@ -45,6 +61,7 @@ export class UsersComponent {
         console.log("Success");
         console.log(res) ; 
         this.dataSource.data = res;
+        localStorage.setItem('usersData', JSON.stringify(res));
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
