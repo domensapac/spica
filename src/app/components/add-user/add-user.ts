@@ -18,8 +18,15 @@ export class AddUser {
 
   FirstName: string = '';
   LastName : string = ''; 
-  email : string = '';
-
+  Email : string = '';
+  MiddleName : string = ''; 
+  BirthDate : string = ''; 
+  Address : string = ''; 
+  City : string = ''; 
+  State : string = '';
+  Phone : string = '';
+  Mobile : string = ''; 
+  Gender : string = '';
   submitted = false;
 
   onSubmit() {
@@ -27,9 +34,26 @@ export class AddUser {
     const newUser = {
       FirstName : this.FirstName,
       LastName : this.LastName,
-      Email : this.email
+      Email : this.Email,
+      MiddleName : this.MiddleName,
+      BirthDate : this.BirthDate,
+      Address : this.Address, 
+      City : this.City,
+      State : this.State, 
+      Phone : this.Phone,
+      Mobile : this.Mobile, 
+      Gender : this.Gender
     }
-    this.userService.addUser(newUser).subscribe();
-    this.router.navigate(['/users']);
+
+    this.userService.addUser(newUser).subscribe({
+      next: (response) => {
+          this.router.navigate(['/users']);
+        },
+      error: (err) => {
+        console.log("error adding user");
+        this.submitted = false;
+        }
+    });
+
   }
 }

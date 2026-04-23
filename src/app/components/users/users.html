@@ -24,8 +24,8 @@
             </button>
         </div>
     </div>
-    <div class="flex w-full flex-col h-full text-gray-700 bg-white rounded-xl shadow-md mt-3 ">
-        <table class="!table-fixed !w-full !border-separate !border-1 !border-slate-300 !rounded-xl !text-lefts" mat-table matSort (matSortChange)="announceSortChange($event)" [dataSource]="dataSource">
+    <div class="!border-1 !border-slate-400 !rounded-md overflow-hidden">
+        <table class="!table-fixed !w-full !border-slate-300 !rounded-md !text-lefts" mat-table matSort (matSortChange)="announceSortChange($event)" [dataSource]="dataSource">
             <ng-container matColumnDef="FirstName">
                 <th class="!p-3 !border-b !border-slate-300 !bg-slate-50" mat-header-cell *matHeaderCellDef mat-sort-header>
                     <div class="flex items-center justify-between">

@@ -47,17 +47,22 @@ export class UserService {
   }
 
   addUser(object : Object){
-    const a = {
-      FirstName : "mitja",
-      LastName : "aa",
-      Email : "mitja@gmail.com"
-    }
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     })  
-    return this.http.post<any>((this.userUrl), JSON.stringify(a), { headers });
+    return this.http.post<any>(this.userUrl, object, { headers });
+  }
+
+  editUser(userId : string | null, object : Object){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    })  
+    console.log(userId);
+    return this.http.put<any>(`${this.userUrl}/${userId}`, object, { headers });
   }
 
   clearCache(){

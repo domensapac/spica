@@ -1,17 +1,83 @@
-
-<form class="!flex !flex-col !gap-2" #f="ngForm" (ngSubmit)="onSubmit()">
-    <label>
-    Name:
-    <input name="FirstName" [(ngModel)]="name" placeholder="Enter your name">
-    </label>
-    <label>
-    Last name:
-    <input name="LastName" [(ngModel)]="name" placeholder="Enter your name">
-    </label>
-    <label>
-    Email:
-    <input name="email" [(ngModel)]="name" placeholder="Enter your email">
-    </label>
-    <button type="submit">Submit</button>
-</form>
-<p *ngIf="submitted">Submitted!</p>
+<div class="flex justify-center items-center h-full border-1 border-black">
+    <form class="!flex !flex-col !gap-2" #f="ngForm" (ngSubmit)="onSubmit()">
+        <div class="grid grid-cols-2 gap-6">
+            <div class="flex flex-col">
+                <label>
+                Name:
+                </label>
+                <input type="text" class="border-1 border-slate-200 rounded-sm p-1" name="FirstName" [(ngModel)]="FirstName">
+            </div>
+            <div class="flex flex-col">
+                <label>
+                Last name:
+                </label>
+                <input type="text" class="border-1 border-slate-200 rounded-sm p-1" name="LastName" [(ngModel)]="LastName">
+            </div>
+            <div class="flex flex-col">
+                <label>
+                Email:
+                </label>
+                <input type="email" class="border-1 border-slate-200 rounded-sm p-1" name="Email" [(ngModel)]="Email" >
+            </div>
+            <div class="flex flex-col">
+                <label>
+                Middle name
+                </label>
+                <input type="text" class="border-1 border-slate-200 rounded-sm p-1" name="MiddleName" [(ngModel)]="MiddleName">
+            </div>
+            <div class="flex flex-col">
+                <label>
+                Birth date:
+                </label>
+                <input type="date" class="border-1 border-slate-200 rounded-sm p-1" name="BirthDate" [(ngModel)]="BirthDate">
+            </div>
+            <div class="flex flex-col">
+                <label>
+                Address
+                </label>
+                <input type="text" class="border-1 border-slate-200 rounded-sm p-1" name="Address" [(ngModel)]="Address">
+            </div>
+            <div class="flex flex-col">
+                <label>
+                City
+                </label>
+                <input type="text" class="border-1 border-slate-200 rounded-sm p-1" name="City" [(ngModel)]="City">
+            </div>
+            <div class="flex flex-col">
+                <label>
+                State
+                </label>
+                <input type="text" class="border-1 border-slate-200 rounded-sm p-1" name="State" [(ngModel)]="State">
+            </div>
+            <div class="flex flex-col">
+                <label>
+                Phone
+                </label>
+                <input type="text" class="border-1 border-slate-200 rounded-sm p-1" name="Phone" [(ngModel)]="Phone">
+            </div>
+            <div class="flex flex-col">
+                <label>
+                Mobile
+                </label>
+                <input type="text" class="border-1 border-slate-200 rounded-sm p-1" name="Mobile" [(ngModel)]="Mobile">
+            </div>
+            <div class="flex flex-col">
+                <label>
+                    Gender
+                </label>
+                <div class="flex gap-1">
+                    <label>
+                    Male
+                    </label>
+                    <input type="radio" required class="border-1 border-slate-200 rounded-sm p-1" name="Gender" [(ngModel)]="Gender" value="Male">
+                    <label>
+                        Female
+                    </label>
+                    <input type="radio" required class="border-1 border-slate-200 rounded-sm p-1" name="Gender" [(ngModel)]="Gender" value="Female">
+                </div>
+            </div>
+        </div>
+        <button class="border-1" type="submit">Submit</button>
+    </form>
+    <p *ngIf="submitted">Submitted!</p>
+</div>
