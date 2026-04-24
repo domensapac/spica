@@ -12,6 +12,7 @@ export class AbsenceService {
   private absenceUrl = '/main-api/api/v1/absences';
   private absenceDefinitionsUrl = '/main-api/api/v1/absencedefinitions'
   cachedAbsences = signal<any[]>([]);
+  cachedAbsenceDefinitions = signal<any[]>([]); 
 
   addAbsence(object : Object){
     if(isPlatformBrowser(this.platformId)){
@@ -23,7 +24,6 @@ export class AbsenceService {
       
       return this.http.post<any>(this.absenceUrl, object, { headers }).pipe(
         tap(res => {
-          console.log(res);
       })
     );
     }
@@ -42,7 +42,8 @@ export class AbsenceService {
       
       return this.http.get<any>(this.absenceDefinitionsUrl, { headers }).pipe(
         tap(res => {
-          console.log(res);
+          this.cachedAbsenceDefinitions.set(res); 
+          localStorage.setItem('absenceDefinitions', JSON.stringify(res));
       })
     );
     }
@@ -59,7 +60,7 @@ export class AbsenceService {
         'Authorization': `Bearer ${token}`
       });
       const dateFrom = new Date(date); 
-      dateFrom.setHours(0, 0, 0, 0); 
+      dateFrom.setHours(2, 0, 0, 0); 
 
       const dateTo = new Date(date); 
       dateTo.setHours(23, 59, 59);

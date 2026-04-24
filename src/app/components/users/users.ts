@@ -9,10 +9,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { parse } from 'path';
 import { AbsenceService } from '../../services/absence-service';
+import { SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'app-userscomponent',
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, RouterModule],
+  imports: [MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, RouterModule, SlicePipe],
   templateUrl: './users.html',
   styleUrl: './users.css',
 })

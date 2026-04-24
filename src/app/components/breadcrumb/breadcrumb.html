@@ -1,30 +1,35 @@
 <div class="w-full">
 
+  @if (currentPath().includes('/settings')) {
+    <span class="text-xl hover:cursor-pointer" routerLink="/users"> 
+      Settings 
+    </span>
+  }
   @if (currentPath().includes('/users')) {
-    <span class="hover:cursor-pointer" routerLink="/users"> 
+    <span class="text-xl hover:cursor-pointer" routerLink="/users"> 
       Users 
     </span>
 
     @if (currentPath().includes('/edit')) {
-      <span class="font-bold"> > Edit </span>
+      <span class="text-xl font-bold"> > Edit </span>
     }
     
     @if (currentPath().includes('/add')) {
-      <span class="font-bold"> > Add </span>
+      <span class="text-xl font-bold"> > Add </span>
     }
   }
 
   @else if (currentPath().includes('/absences')) {
-    <span class="hover:cursor-pointer" routerLink="/absences"> 
+    <span class="text-xl hover:cursor-pointer" routerLink="/absences"> 
       Absences 
     </span>
 
     @if (currentPath().includes('/edit')) {
-      <span class="font-bold"> > Edit </span>
+      <span class="text-xl font-bold"> > Edit </span>
     }
 
     @if (currentPath().includes('/add')) {
-      <span class="font-bold"> > Add </span>
+      <span class="texl-xl font-bold"> > Add </span>
     }
   }
 

@@ -4,7 +4,7 @@ import { BreadcrumbComponent } from '../breadcrumb/breadcrumb';
 
 @Component({
   selector: 'app-user-layout-component',
-  imports: [RouterModule, BreadcrumbComponent],
+  imports: [RouterModule],
   templateUrl: './user-layout.html',
   styleUrl: './user-layout.css',
 })

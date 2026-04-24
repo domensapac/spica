@@ -12,6 +12,15 @@
             </label>
             <input type="date" class="border-1 border-slate-200 rounded-sm p-1" name="dateTo" [(ngModel)]="dateTo">
         </div>
+        <div class="w-1/4">
+            <select name="selectedAbsenceId" [(ngModel)]="selectedAbsenceId" class="block w-full p-1.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            <option value="" disabled selected>Izberi odsotnost</option>
+            @for (item of absenceDefinitions(); track item.Id) {
+                <option [value]="item.Id">{{ item.Name }}</option>
+            }
+            </select>
+        </div>
         <button type="submit">Submit</button>
     </form>
+    
 </div>

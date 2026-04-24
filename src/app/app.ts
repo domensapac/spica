@@ -6,10 +6,11 @@ import { SettingsComponent } from './components/settings/settings';
 import { Router } from 'express';
 import { NavbarComponent } from './components/navbar/navbar';
 import { UsersComponent } from './components/users/users';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NavbarComponent],
+  imports: [CommonModule, RouterOutlet, NavbarComponent, BreadcrumbComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

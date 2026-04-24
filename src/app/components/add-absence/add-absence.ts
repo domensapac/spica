@@ -1,24 +1,33 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { UserService } from '../../services/user-service';
 import { AbsenceService } from '../../services/absence-service';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MatFormField, MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-add-absence',
-  imports: [FormsModule],
+  imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   templateUrl: './add-absence.html',
   styleUrl: './add-absence.css',
 })
 export class AddAbsenceComponent {
   absenceService = inject(AbsenceService); 
   private route = inject(ActivatedRoute);
+  absenceDefinitions = this.absenceService.cachedAbsenceDefinitions;
 
   dateFrom : string = ''; 
   dateTo : string = ''; 
   userId : string | null = ''; 
+  selectedAbsenceId : string = ''; 
 
   ngOnInit(){
+    if(this.absenceDefinitions().length === 0){
+      this.absenceService.getAbsenceDefinitions().subscribe();
+    }
+
     this.route.paramMap.subscribe((obs) => {
       this.userId = obs.get('id');
     });
@@ -39,7 +48,7 @@ export class AddAbsenceComponent {
 
     const newAbsence = {
       UserId : this.userId,
-      AbsenceDefinitionId : "cf5d5560-ab2e-4070-14b6-08d9f11a0528",
+      AbsenceDefinitionId : this.selectedAbsenceId,
       Timestamp : new Date().toISOString(),
       PartialTimeFrom : formattedFrom,
       PartialTimeTo : formattedTo
