@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, computed, ViewChild } from '@angular/core';
+import { Component, inject, signal, OnInit, computed, ViewChild, effect } from '@angular/core';
 import { UserService } from '../../services/user-service';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
@@ -8,6 +8,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { parse } from 'path';
+import { AbsenceService } from '../../services/absence-service';
 
 @Component({
   selector: 'app-userscomponent',
@@ -16,26 +17,33 @@ import { parse } from 'path';
   styleUrl: './users.css',
 })
 export class UsersComponent {
-  users = inject(UserService); 
+  userService = inject(UserService); 
+  absenceService = inject(AbsenceService);
+
   private _liveAnnouncer = inject(LiveAnnouncer);
 
   userList = signal<any[]>([]); 
   
   currentPage = signal(1);
   pageSize = signal(20); 
-  displayedColumns: string[] = ['FirstName', 'LastName', 'Id', 'Email', 'changes'];
+  displayedColumns: string[] = ['FirstName', 'LastName', 'Id', 'Email', 'Absence', 'Actions'];
   dataSource = new MatTableDataSource<any | null>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.userService.cachedUsers();
+      
+    });
+  }
+
   ngOnInit(): void {
-    /*if(this.userList().length === 0){
-      this.getUsers();
+    if (this.userService.cachedUsers().length === 0) {
+      this.userService.getUsers().subscribe();
     }
-      */
-    //this.getUsers();
-    this.loadUsers();
+    this.absenceService.getAbsenceDefinitions().subscribe();
   }
 
   ngAfterViewInit() {
@@ -43,20 +51,9 @@ export class UsersComponent {
     this.dataSource.sort = this.sort;
   }
 
-  loadUsers(){
-    const rawData = localStorage.getItem('usersData');
-    if(rawData){
-      const parsedData = JSON.parse(rawData);
-      console.log(parsedData);
-      this.dataSource.data = parsedData;
-    }
-    else{
-      this.getUsers();
-    }
-  }
 
   getUsers(){
-    this.users.getUsers().subscribe({
+    this.userService.getUsers().subscribe({
       next: (res : any) => {
         console.log("Success");
         console.log(res) ; 
@@ -84,26 +81,11 @@ export class UsersComponent {
   openEditDialog(){}
 
   deleteUser(userId : string){
-    console.log(userId);
-    
-    this.dataSource.data = this.dataSource.data.filter(u => u?.Id !== userId);
-
-    // Če uporabljaš cachedUsers signal v servisu, posodobi še tega (za konsistentnost)
-    this.users.cachedUsers.update(userList =>
-      userList.filter((u : any) => u.Id !== userId)
-    );
-
-    this.users.deleteUser(userId).subscribe({
-      next: (res : any) => {
-        console.log("success");
-      }, 
-      error: (res : any) => {
-        this.getUsers();
-      }
-    });
+    this.userService.deleteUser(userId).subscribe();
   }
 
   announceSortChange(sortState: Sort) {
+    console.log("a");
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
@@ -115,19 +97,6 @@ export class UsersComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-
-  /*
-  paginatedUsers = computed(() => {
-    const startIndex = (this.currentPage() - 1) * this.pageSize(); 
-    const endIndex = startIndex + this.pageSize(); 
-    return this.userList().slice(startIndex, endIndex); 
-  })
-
-  goToPage(page: number){
-    this.currentPage.set(page);
-  }
-  */
 
   copyToClipboard(text: string){
     navigator.clipboard.writeText(text);

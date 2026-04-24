@@ -1,1 +1,159 @@
-<p>absences-component works!</p>
+<div class="flex flex-col w-full">
+    <div class="flex w-full justify-between items-center mb-4">
+        <div class="flex items-center">
+            <mat-form-field appearance="outline" class="!text-sm !origin-left !scale-75">
+                <mat-label>Pick a date</mat-label>
+                <input matInput [matDatepicker]="picker" 
+                       [(ngModel)]="pickedDate" 
+                       (dateChange)="onSubmit()"> <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <button (click)="onSubmit()" class="text-black px-4 py-2 rounded-xl shadow-md hover:bg-gray-200 transition flex">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                </span>
+                <p class="ps-2">
+                    Refresh
+                </p>
+            </button>
+        </div>
+    </div>
+    <div class="!border-1 !border-slate-400 !rounded-md overflow-hidden">
+        <table class="!table-fixed !w-full !border-slate-300 !rounded-md !text-lefts" mat-table matSort (matSortChange)="announceSortChange($event)" [dataSource]="dataSource">
+            <ng-container matColumnDef="FirstName">
+                <th class="!p-3 !border-b !border-slate-300 !bg-slate-50" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <div class="flex items-center justify-between">
+                        <p class="!block !text-xs !font-bold !leading-none !text-slate-800">
+                            NAME 
+                        </p>
+                    </div>
+                </th>
+                <td class="!text-xs" mat-cell *matCellDef="let absence"> 
+                    {{absence.FirstName}} 
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="LastName">
+                <th class="!p-3 !border-b !border-slate-300 !bg-slate-50" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <div class="flex items-center justify-between">
+                        <p class="!block !text-xs !font-bold !leading-none !text-slate-800">
+                            LAST NAME 
+                        </p>
+                    </div>
+                </th>
+                <td class="!text-xs" mat-cell *matCellDef="let absence"> 
+                    {{absence.LastName}} 
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Id">
+                <th class="!p-3 !border-b !border-slate-300 !bg-slate-50" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <div class="flex items-center justify-between">
+                        <p class="!block !text-xs !font-bold !leading-none !text-slate-800">
+                            ID 
+                        </p>
+                    </div>
+                </th>
+                <td class="!text-xs" mat-cell *matCellDef="let absence"> 
+                    <div class="flex justify-between items-center">
+                        <p class="block text-xs text-slate-800">
+                            {{ absence.Id }}
+                        </p>
+                        <span class="active:scale-120 hover:cursor-pointer focus:outline-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy-icon lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        </span>
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Absence Type">
+                <th class="!p-3 !border-b !border-slate-300 !bg-slate-50" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <div class="flex items-center justify-between">
+                        <p class="!block !text-xs !font-bold !leading-none !text-slate-800">
+                            ABSENCE TYPE
+                        </p>
+                    </div>
+                </th>
+                <td class="!text-xs" mat-cell *matCellDef="let absence"> 
+                    {{absence.AbsenceDefinitionName}} 
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="From">
+                <th class="!p-3 !border-b !border-slate-300 !bg-slate-50" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <div class="flex items-center justify-between">
+                        <p class="!block !text-xs !font-bold !leading-none !text-slate-800">
+                            FROM
+                        </p>
+                    </div>
+                </th>
+                <td class="!text-xs" mat-cell *matCellDef="let absence"> 
+                    {{absence.PartialTimeFrom}} 
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="To">
+                <th class="!p-3 !border-b !border-slate-300 !bg-slate-50" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    <div class="flex items-center justify-between">
+                        <p class="!block !text-xs !font-bold !leading-none !text-slate-800">
+                            TO
+                        </p>
+                    </div>
+                </th>
+                <td class="!text-xs" mat-cell *matCellDef="let absence"> 
+                    {{absence.PartialTimeTo}} 
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="changes">
+                <th class="!p-3 !border-b !border-slate-300 !bg-slate-50" mat-header-cell *matHeaderCellDef>
+                    <p class="!block !text-center !text-xs !font-normal !leading-none !text-slate-500">
+                        ACTIONS
+                    </p>
+                </th>
+                <td mat-cell *matCellDef="let absence"> 
+                    <div class="flex justify-center gap-3">
+                        <a routerLink="edit/{{absence.Id}}" mat-raised-button class="block text-xs text-slate-800 font-semibold  inline-flex items-center gap-1">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                            </span>
+                            <span>Edit</span>
+                        </a>
+                        <a class="hover:cursor-pointer text-xs text-slate-800 font-semibold  inline-flex items-center gap-1">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                            </span>
+                            <span>Delete</span>
+                        </a>
+                    </div>
+                </td>
+            </ng-container>
+        
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            
+            </table>
+
+            <mat-paginator class="!text-xs border-t border-slate-200 
+            [&_.mat-mdc-paginator-range-label]:!text-xs 
+            [&_.mat-mdc-text-field-wrapper]:!scale-75 
+            [&_.mat-mdc-paginator-page-size-label]:!text-xs
+            [&_.mat-mdc-option.mdc-list-item]:!text-xs" [pageSizeOptions]="[10, 25, 40]"
+                            showFirstLastButtons
+                            aria-label="Select page of periodic elements">
+            </mat-paginator>
+    </div>
+    <dialog id="my-dialog">
+        <p>This dialog was opened using an invoker command.</p>
+        <button commandfor="my-dialog" command="close">Close</button>
+    </dialog>
+</div>
+
+ 
+
+
+
+

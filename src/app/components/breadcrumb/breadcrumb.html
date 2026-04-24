@@ -1,20 +1,31 @@
 <div class="w-full">
-  
-  <span class="hover:cursor-pointer" routerLink="/users" > 
-    Users 
-  </span>
 
-  @if(currentPath().includes('/users/edit') && currentPath() !== '/users'){
-  <span routerLink="edit" routerLinkActive="font-bold">
-    > Edit
-  </span>
+  @if (currentPath().includes('/users')) {
+    <span class="hover:cursor-pointer" routerLink="/users"> 
+      Users 
+    </span>
+
+    @if (currentPath().includes('/edit')) {
+      <span class="font-bold"> > Edit </span>
+    }
+    
+    @if (currentPath().includes('/add')) {
+      <span class="font-bold"> > Add </span>
+    }
   }
-  @if(currentPath().includes('/users/add') && currentPath() !== '/users'){
-  <span routerLink="add" routerLinkActive="font-bold">
-    > Add
-  </span>
+
+  @else if (currentPath().includes('/absences')) {
+    <span class="hover:cursor-pointer" routerLink="/absences"> 
+      Absences 
+    </span>
+
+    @if (currentPath().includes('/edit')) {
+      <span class="font-bold"> > Edit </span>
+    }
+
+    @if (currentPath().includes('/add')) {
+      <span class="font-bold"> > Add </span>
+    }
   }
 
-
-  
 </div>

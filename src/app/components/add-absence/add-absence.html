@@ -1,0 +1,17 @@
+<div>
+    <form class="!flex !flex-col !gap-2" #f="ngForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col">
+            <label>
+            From:
+            </label>
+            <input type="date" class="border-1 border-slate-200 rounded-sm p-1" name="dateFrom" [(ngModel)]="dateFrom">
+        </div>
+        <div class="flex flex-col">
+            <label>
+            To:
+            </label>
+            <input type="date" class="border-1 border-slate-200 rounded-sm p-1" name="dateTo" [(ngModel)]="dateTo">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
