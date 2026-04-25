@@ -14,8 +14,12 @@
       <span class="text-xl font-bold"> > Edit </span>
     }
     
-    @if (currentPath().includes('/add')) {
+    @if (currentPath().includes('/add') && !currentPath().includes('/absence')) {
       <span class="text-xl font-bold"> > Add </span>
+    }
+
+    @if (currentPath().includes('/absence')){
+      <span class="text-xl font-bold"> > Add absence </span>
     }
   }
 

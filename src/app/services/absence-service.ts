@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
-import { of, tap } from 'rxjs';
+import { catchError, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,9 @@ export class AbsenceService {
   private absenceDefinitionsUrl = '/main-api/api/v1/absencedefinitions'
   cachedAbsences = signal<any[]>([]);
   cachedAbsenceDefinitions = signal<any[]>([]); 
+  filteredAbsences = signal<any[]>([]); 
+
+  cachedDate = signal<any>(''); 
 
   addAbsence(object : Object){
     if(isPlatformBrowser(this.platformId)){
@@ -59,21 +62,73 @@ export class AbsenceService {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       });
+
+      /*
       const dateFrom = new Date(date); 
       dateFrom.setHours(2, 0, 0, 0); 
 
       const dateTo = new Date(date); 
       dateTo.setHours(23, 59, 59);
-      
+
       let params = new HttpParams()
         .set('dateFrom', dateFrom.toISOString())
         .set('dateTo', dateTo.toISOString())
-      return this.http.get<any>(this.absenceUrl, { headers, params }).pipe(
+      */
+
+      return this.http.get<any>(this.absenceUrl, { headers }).pipe(
         tap(res => {
           console.log(res);
-          this.cachedAbsences.set(res);
+          this.cachedAbsences.set(this.filterAbsences(res, date));
+          //this.filteredAbsences.set(this.filterAbsences(res, date));
+          this.cachedDate.set(date);
           localStorage.setItem('absencesData', JSON.stringify(res));
       })
+    );
+    }
+    else{
+      return of([]);
+    }
+  }
+
+  filterAbsences(data : any[], date : Date) : any[]{
+    const selectedDate = new Date(date); 
+    selectedDate.setHours(0,0,0,0); 
+    console.log("Cached date:", selectedDate); 
+    
+    return data.filter(absence => {
+      const from = new Date(absence.PartialTimeFrom); 
+      from.setHours(0,0,0,0);
+
+      const to = new Date(absence.PartialTimeTo); 
+      to.setHours(0,0,0,0); 
+
+     //console.log("From:", from); 
+      //console.log("To:", to); 
+
+      return selectedDate >= from && selectedDate <= to; 
+    })
+  }
+
+  deleteAbsence(absenceId : string){
+    const previousAbsences = [...this.cachedAbsences()]; 
+      
+    this.cachedAbsences.update(absences => absences.filter(absence => absence.Id !== absenceId));
+    localStorage.setItem('absencesData', JSON.stringify(this.cachedAbsences()));
+
+    if(isPlatformBrowser(this.platformId)){
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      });
+      
+      return this.http.delete<any>(`${this.absenceUrl}/${absenceId}`, { headers }).pipe(
+        catchError((err) => {
+          console.error("Izbris ni uspel"); 
+          this.cachedAbsences.set(previousAbsences);
+          localStorage.setItem('usersData', JSON.stringify(previousAbsences));
+          throw err;
+        })
     );
     }
     else{

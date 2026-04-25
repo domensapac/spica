@@ -4,7 +4,7 @@ import { BreadcrumbComponent } from '../breadcrumb/breadcrumb';
 
 @Component({
   selector: 'app-absence-layout',
-  imports: [RouterModule, BreadcrumbComponent],
+  imports: [RouterModule],
   templateUrl: './absence-layout.html',
   styleUrl: './absence-layout.css',
 })

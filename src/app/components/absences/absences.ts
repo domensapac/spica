@@ -8,7 +8,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { RouterModule } from '@angular/router';
 import { parse } from 'path';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AbsenceService } from '../../services/absence-service';
 
@@ -28,18 +28,22 @@ export class AbsencesComponent {
 
   currentPage = signal(1);
   pageSize = signal(20); 
-  displayedColumns: string[] = ['FirstName', 'LastName', 'Id', 'Absence Type', 'From', 'To', 'changes'];
+  displayedColumns: string[] = ['FirstName', 'LastName', 'Timestamp', 'Absence Type', 'From', 'To', 'changes'];
   dataSource = new MatTableDataSource<any | null>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor() {
-    effect(() => {
-      this.dataSource.data = this.absenceService.cachedAbsences();
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+  effect(() => {
+    this.dataSource.data = this.absenceService.cachedAbsences(); 
+    this.pickedDate = this.absenceService.cachedDate();
+  });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   announceSortChange(sortState: Sort) {
@@ -63,5 +67,15 @@ export class AbsencesComponent {
     console.log(d);
     d.setHours(12,0,0);
     this.absenceService.getAbsences(d).subscribe(); 
+  }
+
+  showDialog(event : Event, id : string){
+    event.preventDefault();
+    const conf = confirm("Are you sure you want to delete this user");
+
+    if(conf){
+      const userId : string = id;
+      this.absenceService.deleteAbsence(userId).subscribe();
+    }
   }
 }

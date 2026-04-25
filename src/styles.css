@@ -1,3 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+.mat-mdc-form-field {
+  --mat-form-field-container-height: 30px; 
+}
+
+.mat-mdc-form-field-infix {
+  min-height: 30px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
 
 @import 'tailwindcss';
