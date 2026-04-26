@@ -20,12 +20,6 @@ export class SettingsComponent {
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      const savedConfig = localStorage.getItem('auth_config');
-      if (savedConfig) {
-        const config = JSON.parse(savedConfig);
-        this.client_id = config.client_id;
-        this.client_secret = config.client_secret;
-      }
     }
   }
 
@@ -35,11 +29,15 @@ export class SettingsComponent {
       client_secret : this.client_secret
     }; 
 
-    localStorage.setItem('auth_config', JSON.stringify(authData));
     this.getCreds(authData);
   }
   
   getCreds(authData : any){ 
-    this.auth.getCreds(authData).subscribe();
+    this.auth.getCreds(authData).subscribe({
+      next: (res) => {
+        this.client_id = ''; 
+        this.client_secret = '';
+      }
+    });
   }
 }

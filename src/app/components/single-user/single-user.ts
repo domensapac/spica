@@ -3,10 +3,11 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from '../../services/user-service';
+import { SpinnerComponent } from '../spinner/spinner';
 
 @Component({
   selector: 'app-single-user-component',
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, SpinnerComponent],
   templateUrl: './single-user.html',
   styleUrl: './single-user.css',
 })
@@ -14,8 +15,9 @@ export class SingleUserComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private userService = inject(UserService);
-  id : string | null = ''; 
+  feedback = signal<{type: 'success' | 'error' } | null>(null);
 
+  id : string | null = ''; 
   FirstName: string = '';
   LastName : string = ''; 
   Email : string = '';
@@ -38,11 +40,7 @@ export class SingleUserComponent {
     const user = this.userService.cachedUsers()?.find((u: any) => u.Id === this.id);
     
     if(this.id){
-      console.log("success");
       this.fillForm(user);
-    }
-    else{
-      console.log("error");
     }
   }
 
@@ -67,13 +65,13 @@ export class SingleUserComponent {
   onSubmit() {
     let formattedDate = null; 
     if(this.BirthDate != ""){
-      console.log(this.BirthDate);
       formattedDate = new Date(this.BirthDate).toISOString();
     }
     else{
       formattedDate = null;
     }
     this.submitted = true; 
+
     const newUser = {
       Id : this.id,
       FirstName : this.FirstName,
@@ -91,12 +89,19 @@ export class SingleUserComponent {
 
     this.userService.editUser(this.id, newUser).subscribe({
       next: (response) => {
-          this.router.navigate(['/users']);
+        this.feedback.set({ 
+          type: 'success' 
+        });
+        setTimeout(() => this.router.navigate(['/users']) , 3000); 
+        this.submitted = false;
         },
       error: (err) => {
-        console.log("error updating user");
+        this.feedback.set({ 
+          type: 'error' 
+        });
         this.submitted = false;
         }
+        
     });
   }
 }

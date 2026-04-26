@@ -36,11 +36,10 @@ export class UsersComponent {
   constructor() {
     effect(() => {
       this.dataSource.data = this.userService.cachedUsers();
-      
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     if (this.userService.cachedUsers().length === 0) {
       this.userService.getUsers().subscribe();
     }
@@ -56,8 +55,8 @@ export class UsersComponent {
   getUsers(){
     this.userService.getUsers().subscribe({
       next: (res : any) => {
-        console.log("Success");
-        console.log(res) ; 
+        //console.log("Success");
+        //console.log(res) ; 
         this.dataSource.data = res;
         localStorage.setItem('usersData', JSON.stringify(res));
         this.dataSource.paginator = this.paginator;

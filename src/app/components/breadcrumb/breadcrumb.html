@@ -11,15 +11,15 @@
     </span>
 
     @if (currentPath().includes('/edit')) {
-      <span class="text-xl font-bold"> > Edit </span>
+      <span class="text-rose-400 text-xl font-bold"> > Edit </span>
     }
     
     @if (currentPath().includes('/add') && !currentPath().includes('/absence')) {
-      <span class="text-xl font-bold"> > Add </span>
+      <span class="text-rose-400 text-xl font-bold"> > Add </span>
     }
 
     @if (currentPath().includes('/absence')){
-      <span class="text-xl font-bold"> > Add absence </span>
+      <span class="text-rose-400 text-xl font-bold"> > Add absence </span>
     }
   }
 
@@ -29,11 +29,11 @@
     </span>
 
     @if (currentPath().includes('/edit')) {
-      <span class="text-xl font-bold"> > Edit </span>
+      <span class="text-rose-400 text-xl font-bold"> > Edit </span>
     }
 
     @if (currentPath().includes('/add')) {
-      <span class="texl-xl font-bold"> > Add </span>
+      <span class="text-rose-400 texl-xl font-bold"> > Add </span>
     }
   }
 

@@ -38,6 +38,7 @@ export class AbsenceService {
   getAbsenceDefinitions(){
     if(isPlatformBrowser(this.platformId)){
       const token = localStorage.getItem('token');
+      
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`

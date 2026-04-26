@@ -11,7 +11,6 @@ export class AuthService {
 
   private authUrl = '/auth-api/connect/token';
   token = signal <string | null>(typeof window !== 'undefined' ? localStorage.getItem('token') : null);
-  //token = signal<string>(localStorage.getItem('token') || ''); 
 
   getCreds(authData : any){
     console.log(authData.client_id); 

@@ -17,5 +17,15 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb';
 
 export class App {
   protected readonly title = signal('moj-projekt');
-  
+  private authService = inject(AuthService);
+
+  ngOnInit(){
+    /*const savedToken = localStorage.getItem('token');
+    console.log(savedToken); 
+    
+    if (savedToken) {
+      this.authService.token.set(savedToken);
+    } 
+    */ 
+  }
 }

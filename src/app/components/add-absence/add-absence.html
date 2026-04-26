@@ -1,30 +1,59 @@
 <div class="flex justify-center items-center h-full w-full">
     <div class="p-20 border-1 border-slate-200 shadow-sm">
         <form class="!flex !flex-col !gap-3" #f="ngForm" (ngSubmit)="onSubmit()">
-            <div class="min-w-50 flex flex-col">
-                <label class="text-slate-500">
-                From:
+            <div class="min-w-60 flex flex-col">
+                <h1 class="text-lg text-rose-400 tracking-[1px]">From</h1>
+                <label class="text-slate-500 tracking-[1px]">
+                Date:
                 </label>
-                <input type="date" class="border-1 border-slate-200 rounded-sm p-1" name="dateFrom" [(ngModel)]="dateFrom">
+                <input type="date" [max]="dateTo" class="border-1 border-slate-200 rounded-sm !p-1" name="dateFrom" [(ngModel)]="dateFrom">
+                <div class="min-w-60 flex flex-col">
+                    <label class="text-slate-500 tracking-[1px]">Time:</label>
+                    <input type="time" 
+                        class="border border-slate-200 rounded-sm p-0.5 focus:outline-blue-500" 
+                        name="timeFrom" 
+                        [(ngModel)]="timeFrom">
+                </div>
             </div>
-            <div class="min-w-50 flex flex-col">
-                <label class="text-slate-500">
-                To:
+            <div class="min-w-60 flex flex-col mt-3">
+                <h1 class="text-lg text-rose-400 tracking-[1px]">To</h1>
+                <label class="text-slate-500 tracking-[1px]">
+                Date:
                 </label>
-                <input type="date" class="border-1 border-slate-200 rounded-sm p-1" name="dateTo" [(ngModel)]="dateTo">
+                <input type="date" [min]="dateFrom" class="border-1 border-slate-200 rounded-sm p-1" name="dateTo" [(ngModel)]="dateTo">
+                <div class="min-w-60 flex flex-col">
+                    <label class="text-slate-500 tracking-[1px]">Time:</label>
+                    <input type="time" 
+                        class="border border-slate-200 rounded-sm p-0.5 focus:outline-blue-500" 
+                        name="timeFrom" 
+                        [(ngModel)]="timeTo">
+                </div>
             </div>
             <div>
-                <label class="text-slate-500">
+                <label class="text-slate-500 tracking-[1px]">
                     Absence type
                 </label>
                 <select name="selectedAbsenceId" [(ngModel)]="selectedAbsenceId" class="block w-full p-1.5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                <option value="" disabled selected>Izberi odsotnost</option>
+                <option value="" disabled selected>Choose type</option>
                 @for (item of absenceDefinitions(); track item.Id) {
                     <option [value]="item.Id">{{ item.Name }}</option>
                 }
                 </select>
             </div>
-            <button type="submit">Submit</button>
+            <div class="flex justify-center mt-3">
+                <button class="text-white hover:cursor-pointer h-10 px-4 border border-slate-300 bg-rose-400 rounded-md transition flex items-center text-md font-semibold shadow-sm" type="submit">Submit</button>
+            </div>
+            @if (feedback(); as fb) {
+                <div [class]="fb.type === 'success' ? 'bg-green-50 flex flex-col' : 'bg-red-50'" class="text-center">
+                    @if(fb.type === 'success'){
+                        <p>Successfully added!</p>
+                        <p>You'll be redirected</p>
+                    } @else {
+                        <p>Error</p>
+                    }
+                </div>
+            }
+            
         </form>
     </div>
 </div>
