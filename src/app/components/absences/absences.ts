@@ -59,6 +59,11 @@ export class AbsencesComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  refreshData(){
+    this.dataSource.data = [];
+    this.onSubmit();
+  }
+
   onSubmit(){
     if(!this.pickedDate) return;
 
