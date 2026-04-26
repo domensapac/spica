@@ -10,7 +10,7 @@ import { SpinnerComponent } from '../spinner/spinner';
 
 @Component({
   selector: 'app-add-absence',
-  imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, SpinnerComponent],
+  imports: [FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   templateUrl: './add-absence.html',
   styleUrl: './add-absence.css',
 })
