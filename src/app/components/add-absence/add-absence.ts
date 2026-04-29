@@ -66,6 +66,7 @@ export class AddAbsenceComponent {
       PartialTimeFrom : `${formattedFrom?.split('T')[0]}T${this.timeFrom}:00`,
       PartialTimeTo : `${formattedTo?.split('T')[0]}T${this.timeTo}:00`
     }
+
     this.absenceService.addAbsence(newAbsence).subscribe({
       next: () => {
         this.feedback.set({ 
@@ -73,7 +74,6 @@ export class AddAbsenceComponent {
         });
         setTimeout(() => this.router.navigate(['/users']) , 3000); 
         this.submitted = false;
-
       },
       error: (err) => {
         this.feedback.set({ 

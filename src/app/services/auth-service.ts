@@ -28,11 +28,9 @@ export class AuthService {
     return this.http.post<any>(this.authUrl, payload.toString(), { headers })
       .pipe(
         tap(res => {
-          console.log(res);
           if(res.access_token){
             this.token.set(res.access_token); 
             localStorage.setItem("token", res.access_token);
-            console.log('Success'); 
           }
         })
       )

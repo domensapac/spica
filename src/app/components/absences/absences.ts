@@ -23,9 +23,8 @@ export class AbsencesComponent {
   absenceService = inject(AbsenceService); 
   
   private _liveAnnouncer = inject(LiveAnnouncer);
+  
   pickedDate : string = '';
-
-
   currentPage = signal(1);
   pageSize = signal(20); 
   displayedColumns: string[] = ['FirstName', 'LastName', 'Timestamp', 'Absence Type', 'From', 'To', 'changes'];
@@ -68,8 +67,6 @@ export class AbsencesComponent {
     if(!this.pickedDate) return;
 
     const d = new Date(this.pickedDate);
-    console.log(this.pickedDate); 
-    console.log(d);
     d.setHours(12,0,0);
     this.absenceService.getAbsences(d).subscribe(); 
   }

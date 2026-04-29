@@ -18,11 +18,6 @@ export class SettingsComponent {
   client_id: string = ''; 
   client_secret : string = '';
 
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-    }
-  }
-
   saveSettings(){
     const authData = {
       client_id: this.client_id,
